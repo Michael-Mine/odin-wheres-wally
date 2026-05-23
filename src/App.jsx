@@ -1,7 +1,9 @@
+import { Link, Outlet } from "react-router";
+
 function App() {
   return (
     <>
-      <h1>Hi</h1>
+      <Outlet />
     </>
   );
 }
