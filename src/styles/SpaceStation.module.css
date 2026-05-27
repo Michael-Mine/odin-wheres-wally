@@ -1,5 +1,9 @@
+.charactersContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .charactersImage {
   height: auto;
   width: 500px;
-  margin: auto;
 }

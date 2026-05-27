@@ -6,13 +6,14 @@ function SpaceStation() {
   return (
     <>
       <h2>Space Station</h2>
-      <img
-        src={charactersImage}
-        alt="characters"
-        className={styles.charactersImage}
-      />
+      <div className={styles.charactersContainer}>
+        <img
+          src={charactersImage}
+          alt="characters"
+          className={styles.charactersImage}
+        />
+      </div>
       <p>
-        {" "}
         <b>
           Wally &nbsp; &nbsp; Woof &nbsp; &nbsp; &nbsp; Wenda &nbsp; &nbsp;
           &nbsp; &nbsp; &nbsp; &nbsp; Wizard &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
