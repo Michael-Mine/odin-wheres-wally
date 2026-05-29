@@ -1,0 +1,12 @@
+.box {
+  /* top: anchor(top); */
+  /* left: anchor(center); */
+  translate: 10% 10%;
+  position: relative;
+  margin: unset;
+}
+
+.box:popover-open {
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
