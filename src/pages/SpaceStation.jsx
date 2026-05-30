@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Characters from "../components/Characters";
 import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
 import markerImage from "../assets/marker-check.svg";
@@ -12,7 +12,6 @@ function SpaceStation() {
     "Wizard",
     "Odlaw",
   ]);
-  const [coord, setCoord] = useState([0, 0]);
   const [markers, setMarkers] = useState([
     { char: "Wally", x: 40.57, y: 61.77 },
     { char: "Woof", x: 58.87, y: 90.87 },
@@ -20,10 +19,12 @@ function SpaceStation() {
     { char: "Wizard", x: 78.11, y: 57.74 },
     { char: "Odlaw", x: 7.1, y: 69.14 },
   ]);
+  const [coord, setCoord] = useState([0, 0]);
+
   console.log("rendering");
-  const targetingBox = document.getElementById("targetingBox");
-  const selectionBox = document.getElementById("selectionBox");
   const image = document.getElementById("spaceStationImage");
+  const targetingBox = useRef(null);
+  const selectionBox = useRef(null);
 
   const handleImageClick = (e) => {
     const target = e.target;
@@ -32,30 +33,27 @@ function SpaceStation() {
     // Get click position relative to image
     const x = e.pageX - target.offsetLeft;
     const y = e.pageY - target.offsetTop;
-    console.log(x, y);
 
     // Normalize to percentage of width and height
     // Multiply by 10000 and divide by 100 to keep 2 decimal places
     const xCoord = Math.floor((x / target.width) * 10000) / 100;
     const yCoord = Math.floor((y / target.height) * 10000) / 100;
-    console.log(xCoord, yCoord);
-    console.log(target.width, target.height);
 
     console.log(`Clicked at: X=${xCoord}%, Y=${yCoord}%`);
     setCoord([xCoord, yCoord]);
 
-    targetingBox.style.left = e.pageX + "px";
-    targetingBox.style.top = e.pageY + "px";
-    targetingBox.togglePopover();
+    targetingBox.current.style.left = e.pageX + "px";
+    targetingBox.current.style.top = e.pageY + "px";
+    targetingBox.current.togglePopover();
 
-    selectionBox.style.left = e.pageX + "px";
-    selectionBox.style.top = e.pageY + "px";
-    selectionBox.togglePopover();
+    selectionBox.current.style.left = e.pageX + "px";
+    selectionBox.current.style.top = e.pageY + "px";
+    selectionBox.current.togglePopover();
   };
 
   const handleCharacterSelect = (character) => {
-    targetingBox.togglePopover();
-    selectionBox.togglePopover();
+    targetingBox.current.togglePopover();
+    selectionBox.current.togglePopover();
     console.log("click");
     //POST request with character & coord
   };
@@ -73,12 +71,14 @@ function SpaceStation() {
       <div
         className={styles.targetingBox}
         id="targetingBox"
+        ref={targetingBox}
         popover="auto"
         anchor="spaceStationImage"
       >
         <div
           className={styles.selectionBox}
           id="selectionBox"
+          ref={selectionBox}
           popover="auto"
           anchor="targetingBox"
         >
