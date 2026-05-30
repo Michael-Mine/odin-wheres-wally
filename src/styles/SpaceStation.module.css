@@ -1,4 +1,18 @@
-.box {
+.targetingBox {
+  translate: -50% -50%;
+  position: relative;
+  margin: unset;
+}
+
+.targetingBox:popover-open {
+  width: 10px;
+  height: 10px;
+  border: 3px solid #783192;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.selectionBox {
   /* top: anchor(top); */
   /* left: anchor(center); */
   translate: 10% 10%;
@@ -6,7 +20,7 @@
   margin: unset;
 }
 
-.box:popover-open {
+.selectionBox:popover-open {
   border-radius: 8px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }

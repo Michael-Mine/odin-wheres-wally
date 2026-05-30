@@ -13,7 +13,8 @@ function SpaceStation() {
   ]);
   const [coord, setCoord] = useState([0, 0]);
   console.log("rendering");
-  const box = document.getElementById("selectionBox");
+  const targetingBox = document.getElementById("targetingBox");
+  const selectionBox = document.getElementById("selectionBox");
 
   const handleImageClick = (e) => {
     const target = e.target;
@@ -30,13 +31,18 @@ function SpaceStation() {
     console.log(`Clicked at: X=${xCoord}%, Y=${yCoord}%`);
     setCoord([xCoord, yCoord]);
 
-    box.style.top = e.pageY + "px";
-    box.style.left = e.pageX + "px";
-    box.togglePopover();
+    targetingBox.style.top = e.pageY + "px";
+    targetingBox.style.left = e.pageX + "px";
+    targetingBox.togglePopover();
+
+    selectionBox.style.top = e.pageY + "px";
+    selectionBox.style.left = e.pageX + "px";
+    selectionBox.togglePopover();
   };
 
   const handleCharacterSelect = (character) => {
-    box.togglePopover();
+    targetingBox.togglePopover();
+    selectionBox.togglePopover();
     console.log("click");
     //POST request with character & coord
   };
@@ -52,22 +58,29 @@ function SpaceStation() {
         onClick={handleImageClick}
       />
       <div
-        className={styles.box}
-        id="selectionBox"
+        className={styles.targetingBox}
+        id="targetingBox"
         popover="auto"
         anchor="spaceStationImage"
       >
-        <ul>
-          {remainingCharacters.map((character) => {
-            return (
-              <li key={character}>
-                <button onClick={() => handleCharacterSelect(character)}>
-                  {character}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <div
+          className={styles.selectionBox}
+          id="selectionBox"
+          popover="auto"
+          anchor="targetingBox"
+        >
+          <ul>
+            {remainingCharacters.map((character) => {
+              return (
+                <li key={character}>
+                  <button onClick={() => handleCharacterSelect(character)}>
+                    {character}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </>
   );
