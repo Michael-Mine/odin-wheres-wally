@@ -69,11 +69,14 @@ function SpaceStation() {
           popover="auto"
           anchor="targetingBox"
         >
-          <ul>
+          <ul className={styles.ul}>
             {remainingCharacters.map((character) => {
               return (
                 <li key={character}>
-                  <button onClick={() => handleCharacterSelect(character)}>
+                  <button
+                    className={styles.buttons}
+                    onClick={() => handleCharacterSelect(character)}
+                  >
                     {character}
                   </button>
                 </li>
