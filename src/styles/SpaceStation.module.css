@@ -31,3 +31,12 @@
 .buttons {
   margin: 3px;
 }
+
+.marker {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  filter: invert(19%) sepia(94%) saturate(1706%) hue-rotate(267deg)
+    brightness(90%) contrast(86%);
+  transform: translate(-50%, -50%);
+}

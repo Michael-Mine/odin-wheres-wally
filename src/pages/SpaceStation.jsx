@@ -1,6 +1,7 @@
 import { useState } from "react";
-import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
 import Characters from "../components/Characters";
+import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
+import markerImage from "../assets/marker-check.svg";
 import styles from "../styles/SpaceStation.module.css";
 
 function SpaceStation() {
@@ -12,31 +13,43 @@ function SpaceStation() {
     "Odlaw",
   ]);
   const [coord, setCoord] = useState([0, 0]);
+  const [markers, setMarkers] = useState([
+    { char: "Wally", x: 40.57, y: 61.77 },
+    { char: "Woof", x: 58.87, y: 90.87 },
+    { char: "Wendy", x: 29.47, y: 51.37 },
+    { char: "Wizard", x: 78.11, y: 57.74 },
+    { char: "Odlaw", x: 7.1, y: 69.14 },
+  ]);
   console.log("rendering");
   const targetingBox = document.getElementById("targetingBox");
   const selectionBox = document.getElementById("selectionBox");
+  const image = document.getElementById("spaceStationImage");
 
   const handleImageClick = (e) => {
     const target = e.target;
+    console.log(target);
 
     // Get click position relative to image
     const x = e.pageX - target.offsetLeft;
     const y = e.pageY - target.offsetTop;
+    console.log(x, y);
 
     // Normalize to percentage of width and height
     // Multiply by 10000 and divide by 100 to keep 2 decimal places
     const xCoord = Math.floor((x / target.width) * 10000) / 100;
     const yCoord = Math.floor((y / target.height) * 10000) / 100;
+    console.log(xCoord, yCoord);
+    console.log(target.width, target.height);
 
     console.log(`Clicked at: X=${xCoord}%, Y=${yCoord}%`);
     setCoord([xCoord, yCoord]);
 
-    targetingBox.style.top = e.pageY + "px";
     targetingBox.style.left = e.pageX + "px";
+    targetingBox.style.top = e.pageY + "px";
     targetingBox.togglePopover();
 
-    selectionBox.style.top = e.pageY + "px";
     selectionBox.style.left = e.pageX + "px";
+    selectionBox.style.top = e.pageY + "px";
     selectionBox.togglePopover();
   };
 
@@ -85,6 +98,21 @@ function SpaceStation() {
           </ul>
         </div>
       </div>
+      {markers.map((marker) => {
+        return (
+          <img
+            key={marker.char}
+            src={markerImage}
+            alt="check marker"
+            className={styles.marker}
+            style={{
+              left: (marker.x * image.width) / 100 + image.offsetLeft + "px",
+              top:
+                (marker.y * image.height) / 100 + image.offsetTop - 35 + "px",
+            }}
+          ></img>
+        );
+      })}
     </>
   );
 }
