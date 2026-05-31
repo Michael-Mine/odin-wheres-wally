@@ -5,7 +5,7 @@ import markerImage from "../assets/marker-check.svg";
 import styles from "../styles/SpaceStation.module.css";
 
 function SpaceStation() {
-  const [remainingCharacters, setremainingCharacters] = useState([
+  const [remainingCharacters, setRemainingCharacters] = useState([
     "Wally",
     "Woof",
     "Wendy",
@@ -21,6 +21,11 @@ function SpaceStation() {
   ]);
   const [markersPixel, setMarkersPixel] = useState([]);
   const [coord, setCoord] = useState([0, 0]);
+
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+  const [sending, setSending] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   console.log("rendering");
   const targetingBox = useRef(null);
@@ -62,11 +67,29 @@ function SpaceStation() {
   };
 
   const handleCharacterSelect = (character) => {
-    targetingBox.current.togglePopover();
-    selectionBox.current.togglePopover();
-    console.log("click");
+    // targetingBox.current.togglePopover();
+    // selectionBox.current.textContent = "checking";
+    console.log(character, coord);
     //POST request with character & coord
+    setSending(true);
+
+    fetch(apiUrl, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ character, coord }),
+    })
+      .then((response) => response.json())
+      .then((response) => setResponse({ ...response }))
+      .catch((error) => setError(error))
+      .finally(() => {
+        setSending(false);
+        targetingBox.current.togglePopover();
+      });
   };
+
+  //if sending, add checking message (leave)
+  //if response is char & coords, check if in markers and add, setRemainingCharacters
+  //if response is empty/message, display incorrect pic temporarily
 
   return (
     <>
