@@ -12,23 +12,22 @@ function SpaceStation() {
     "Wizard",
     "Odlaw",
   ]);
-  const [markers, setMarkers] = useState([
+  const [markersPercent, setMarkersPercent] = useState([
     { char: "Wally", x: 40.57, y: 61.77 },
     { char: "Woof", x: 58.87, y: 90.87 },
     { char: "Wendy", x: 29.47, y: 51.37 },
     { char: "Wizard", x: 78.11, y: 57.74 },
     { char: "Odlaw", x: 7.1, y: 69.14 },
   ]);
+  const [markersPixel, setMarkersPixel] = useState([]);
   const [coord, setCoord] = useState([0, 0]);
 
   console.log("rendering");
-  const image = document.getElementById("spaceStationImage");
   const targetingBox = useRef(null);
   const selectionBox = useRef(null);
 
   const handleImageClick = (e) => {
     const target = e.target;
-    console.log(target);
 
     // Get click position relative to image
     const x = e.pageX - target.offsetLeft;
@@ -49,6 +48,17 @@ function SpaceStation() {
     selectionBox.current.style.left = e.pageX + "px";
     selectionBox.current.style.top = e.pageY + "px";
     selectionBox.current.togglePopover();
+
+    // reset marker positions if image was resized
+    setMarkersPixel(
+      markersPercent.map((marker) => {
+        return {
+          char: marker.char,
+          x: (marker.x * target.width) / 100 + target.offsetLeft + "px",
+          y: (marker.y * target.height) / 100 + target.offsetTop - 35 + "px",
+        };
+      }),
+    );
   };
 
   const handleCharacterSelect = (character) => {
@@ -98,18 +108,14 @@ function SpaceStation() {
           </ul>
         </div>
       </div>
-      {markers.map((marker) => {
+      {markersPixel.map((marker) => {
         return (
           <img
             key={marker.char}
             src={markerImage}
             alt="check marker"
             className={styles.marker}
-            style={{
-              left: (marker.x * image.width) / 100 + image.offsetLeft + "px",
-              top:
-                (marker.y * image.height) / 100 + image.offsetTop - 35 + "px",
-            }}
+            style={{ left: marker.x, top: marker.y }}
           ></img>
         );
       })}
