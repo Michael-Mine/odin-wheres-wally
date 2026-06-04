@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import Characters from "../components/Characters";
 import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
 import markerImage from "../assets/marker-check.svg";
+import crossImage from "../assets/alpha-x-circle-outline.svg";
 import styles from "../styles/SpaceStation.module.css";
 
 function SpaceStation() {
@@ -24,15 +25,19 @@ function SpaceStation() {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
+  const [crossPosition, setCrossPosition] = useState(["0px", "0px"]);
 
   console.log("rendering");
   const targetingBox = useRef(null);
   const selectionBox = useRef(null);
+  const cross = useRef(null);
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const url = `${apiUrl}coords`;
 
   const handleImageClick = (e) => {
+    cross.current.style.display = "none";
+
     const target = e.target;
 
     setImageDimensions({
@@ -52,6 +57,7 @@ function SpaceStation() {
 
     console.log(`Clicked at: X=${xCoord}%, Y=${yCoord}%`);
     setCoord([xCoord, yCoord]);
+    setCrossPosition([e.pageX + "px", e.pageY + "px"]);
 
     targetingBox.current.style.left = e.pageX + "px";
     targetingBox.current.style.top = e.pageY + "px";
@@ -110,6 +116,9 @@ function SpaceStation() {
             return item !== response.name;
           });
           setRemainingCharacters(updatedCharacters);
+        } else {
+          console.log("incorrect");
+          cross.current.style.display = "inline";
         }
       })
       .catch((error) => setError(error))
@@ -118,8 +127,6 @@ function SpaceStation() {
         targetingBox.current.togglePopover();
       });
   };
-
-  //if response is empty/message, display incorrect pic temporarily
 
   return (
     <>
@@ -175,6 +182,14 @@ function SpaceStation() {
           ></img>
         );
       })}
+
+      <img
+        src={crossImage}
+        alt="cross marker"
+        ref={cross}
+        className={styles.cross}
+        style={{ left: crossPosition[0], top: crossPosition[1] }}
+      ></img>
     </>
   );
 }
