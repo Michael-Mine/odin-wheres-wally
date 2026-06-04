@@ -12,36 +12,43 @@ function SpaceStation() {
     "Wizard",
     "Odlaw",
   ]);
-  const [markersPercent, setMarkersPercent] = useState([
-    { char: "Wally", x: 40.57, y: 61.77 },
-    { char: "Woof", x: 58.87, y: 90.87 },
-    { char: "Wendy", x: 29.47, y: 51.37 },
-    { char: "Wizard", x: 78.11, y: 57.74 },
-    { char: "Odlaw", x: 7.1, y: 69.14 },
-  ]);
+  const [markersPercent, setMarkersPercent] = useState([]);
   const [markersPixel, setMarkersPixel] = useState([]);
+  const [imageDimensions, setImageDimensions] = useState({
+    width: 0,
+    height: 0,
+    offsetLeft: 0,
+    offsetTop: 0,
+  });
   const [coord, setCoord] = useState([0, 0]);
-
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
-  const apiUrl = import.meta.env.VITE_API_URL;
 
   console.log("rendering");
   const targetingBox = useRef(null);
   const selectionBox = useRef(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const url = `${apiUrl}coords`;
+
   const handleImageClick = (e) => {
     const target = e.target;
 
+    setImageDimensions({
+      width: target.width,
+      height: target.height,
+      offsetLeft: target.offsetLeft,
+      offsetTop: target.offsetTop,
+    });
     // Get click position relative to image
     const x = e.pageX - target.offsetLeft;
     const y = e.pageY - target.offsetTop;
 
     // Normalize to percentage of width and height
-    // Multiply by 10000 and divide by 100 to keep 2 decimal places
-    const xCoord = Math.floor((x / target.width) * 10000) / 100;
-    const yCoord = Math.floor((y / target.height) * 10000) / 100;
+    // Multiply by 10000 to store integer in db from 0 to 10000
+    const xCoord = Math.floor((x / target.width) * 10000);
+    const yCoord = Math.floor((y / target.height) * 10000);
 
     console.log(`Clicked at: X=${xCoord}%, Y=${yCoord}%`);
     setCoord([xCoord, yCoord]);
@@ -58,28 +65,53 @@ function SpaceStation() {
     setMarkersPixel(
       markersPercent.map((marker) => {
         return {
-          char: marker.char,
-          x: (marker.x * target.width) / 100 + target.offsetLeft + "px",
-          y: (marker.y * target.height) / 100 + target.offsetTop - 35 + "px",
+          char: marker.name,
+          x: (marker.xCoord * target.width) / 10000 + target.offsetLeft + "px",
+          y:
+            (marker.yCoord * target.height) / 10000 +
+            target.offsetTop -
+            35 +
+            "px",
         };
       }),
     );
   };
 
   const handleCharacterSelect = (character) => {
-    // targetingBox.current.togglePopover();
-    // selectionBox.current.textContent = "checking";
-    console.log(character, coord);
-    //POST request with character & coord
     setSending(true);
 
-    fetch(apiUrl, {
+    fetch(url, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ character, coord }),
+      body: JSON.stringify({ character, xCoord: coord[0], yCoord: coord[1] }),
     })
       .then((response) => response.json())
-      .then((response) => setResponse({ ...response }))
+      .then((response) => {
+        setResponse({ ...response });
+        console.log(response);
+        if (response.name) {
+          setMarkersPercent([...markersPercent, response]);
+          setMarkersPixel([
+            ...markersPixel,
+            {
+              char: response.name,
+              x:
+                (response.xCoord * imageDimensions.width) / 10000 +
+                imageDimensions.offsetLeft +
+                "px",
+              y:
+                (response.yCoord * imageDimensions.height) / 10000 +
+                imageDimensions.offsetTop -
+                35 +
+                "px",
+            },
+          ]);
+          const updatedCharacters = remainingCharacters.filter((item) => {
+            return item !== response.name;
+          });
+          setRemainingCharacters(updatedCharacters);
+        }
+      })
       .catch((error) => setError(error))
       .finally(() => {
         setSending(false);
@@ -87,8 +119,6 @@ function SpaceStation() {
       });
   };
 
-  //if sending, add checking message (leave)
-  //if response is char & coords, check if in markers and add, setRemainingCharacters
   //if response is empty/message, display incorrect pic temporarily
 
   return (
@@ -115,6 +145,7 @@ function SpaceStation() {
           popover="auto"
           anchor="targetingBox"
         >
+          {/* move to componet */}
           <ul className={styles.ul}>
             {remainingCharacters.map((character) => {
               return (
@@ -131,6 +162,8 @@ function SpaceStation() {
           </ul>
         </div>
       </div>
+      {/* move to componet */}
+
       {markersPixel.map((marker) => {
         return (
           <img
