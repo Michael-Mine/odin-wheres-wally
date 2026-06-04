@@ -1,4 +1,4 @@
-import imageIcon from "../assets/image.svg";
+import targetIcon from "../assets/target-account.svg";
 import myLogo from "../assets/logo.png";
 import githubLogo from "../assets/github-mark.svg";
 import styles from "../styles/Navbar.module.css";
@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <nav>
       <a href="/">
-        <img src={imageIcon} className={styles.homeIcon} alt="Blog icon" />
+        <img src={targetIcon} className={styles.homeIcon} alt="Blog icon" />
       </a>
       <a href="https://mrmine.net/" target="_blank" data-testid="my-site-link">
         <img src={myLogo} className={styles.myLogo} alt="Mr Mine logo" />
