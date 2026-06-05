@@ -1,4 +1,6 @@
+import PropTypes from "prop-types";
 import styles from "../styles/RemainingCharactersBox.module.css";
+import RemainingCharactersBoxItem from "./RemainingCharactersBoxItem";
 
 function RemainingCharactersBox({
   remainingCharacters,
@@ -9,19 +11,21 @@ function RemainingCharactersBox({
       <ul className={styles.ul}>
         {remainingCharacters.map((character) => {
           return (
-            <li key={character}>
-              <button
-                className={styles.buttons}
-                onClick={() => handleCharacterSelect(character)}
-              >
-                {character}
-              </button>
-            </li>
+            <RemainingCharactersBoxItem
+              key={character}
+              character={character}
+              handleCharacterSelect={handleCharacterSelect}
+            />
           );
         })}
       </ul>
     );
   }
 }
+
+RemainingCharactersBox.propTypes = {
+  remainingCharacters: PropTypes.arrayOf(PropTypes.string),
+  handleCharacterSelect: PropTypes.func,
+};
 
 export default RemainingCharactersBox;
