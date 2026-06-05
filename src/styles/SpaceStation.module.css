@@ -23,15 +23,6 @@
   background-color: transparent;
 }
 
-.ul {
-  margin: 3px;
-  padding: 1px;
-}
-
-.buttons {
-  margin: 3px;
-}
-
 .marker {
   position: absolute;
   width: 50px;

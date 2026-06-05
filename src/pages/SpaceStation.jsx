@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Characters from "../components/Characters";
+import RemainingCharactersBox from "../components/RemainingCharactersBox";
 import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
 import markerImage from "../assets/marker-check.svg";
 import crossImage from "../assets/alpha-x-circle-outline.svg";
@@ -152,21 +153,10 @@ function SpaceStation() {
           popover="auto"
           anchor="targetingBox"
         >
-          {/* move to componet */}
-          <ul className={styles.ul}>
-            {remainingCharacters.map((character) => {
-              return (
-                <li key={character}>
-                  <button
-                    className={styles.buttons}
-                    onClick={() => handleCharacterSelect(character)}
-                  >
-                    {character}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          <RemainingCharactersBox
+            remainingCharacters={remainingCharacters}
+            handleCharacterSelect={handleCharacterSelect}
+          />
         </div>
       </div>
       {/* move to componet */}
