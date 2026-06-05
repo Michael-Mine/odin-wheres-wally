@@ -1,9 +1,11 @@
 import { Link } from "react-router";
+import Characters from "../components/Characters";
 
 function Home() {
   return (
     <>
       <h2>The classic Where's Wally game</h2>
+      <Characters />
       <h3>Find all the characters as fast as you can!</h3>
       <p>How to play:</p>
       <ul>
@@ -14,11 +16,11 @@ function Home() {
         <li>Suitable for desktop only.</li>
       </ul>
       <div className="links">
+        <Link to="/space-station">
+          <button>Load Game</button>
+        </Link>
         <Link to="/leaderboard">
           <button>Leaderboard</button>
-        </Link>
-        <Link to="/space-station">
-          <button>Load Image</button>
         </Link>
       </div>
     </>
