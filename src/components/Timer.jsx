@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import timerIcon from "../assets/timer-outline.svg";
 import styles from "../styles/Timer.module.css";
 
 function Timer() {
@@ -16,13 +17,25 @@ function Timer() {
 
   if (counter > 59) {
     return (
-      <h2 className={styles.timer}>
-        {Math.floor(counter / 60)} min {Math.floor(counter % 60)} sec{" "}
-      </h2>
+      <div className={styles.timerContainer}>
+        <img
+          src={timerIcon}
+          alt="timer icon"
+          className={styles.timerIcon}
+        ></img>
+        <h2 className={styles.timer}>
+          {Math.floor(counter / 60)} min {Math.floor(counter % 60)} sec{" "}
+        </h2>
+      </div>
     );
   }
 
-  return <h2 className={styles.timer}>{counter} sec</h2>;
+  return (
+    <div className={styles.timerContainer}>
+      <img src={timerIcon} alt="timer icon" className={styles.timerIcon}></img>
+      <h2 className={styles.timer}>{counter} seconds</h2>
+    </div>
+  );
 }
 
 export default Timer;

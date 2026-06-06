@@ -1,3 +1,15 @@
-.timer {
+.timerContainer {
+  display: flex;
+  justify-content: center;
   margin: 10px 0 0;
+  gap: 6px;
+}
+
+.timerIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.timer {
+  margin: 4px 0 0;
 }

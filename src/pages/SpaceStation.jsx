@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import Characters from "../components/Characters";
 import RemainingCharactersBox from "../components/RemainingCharactersBox";
 import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
-import markerImage from "../assets/marker-check.svg";
-import crossImage from "../assets/alpha-x-circle-outline.svg";
+import markerIcon from "../assets/marker-check.svg";
+import crossIcon from "../assets/alpha-x-circle-outline.svg";
 import styles from "../styles/SpaceStation.module.css";
 import Timer from "../components/Timer";
 
@@ -164,7 +164,7 @@ function SpaceStation() {
         return (
           <img
             key={marker.char}
-            src={markerImage}
+            src={markerIcon}
             alt="check marker"
             className={styles.marker}
             style={{ left: marker.x, top: marker.y }}
@@ -172,7 +172,7 @@ function SpaceStation() {
         );
       })}
       <img
-        src={crossImage}
+        src={crossIcon}
         alt="cross marker"
         ref={cross}
         className={styles.cross}
