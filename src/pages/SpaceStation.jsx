@@ -5,6 +5,7 @@ import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
 import markerImage from "../assets/marker-check.svg";
 import crossImage from "../assets/alpha-x-circle-outline.svg";
 import styles from "../styles/SpaceStation.module.css";
+import Timer from "../components/Timer";
 
 function SpaceStation() {
   const [remainingCharacters, setRemainingCharacters] = useState([
@@ -159,8 +160,6 @@ function SpaceStation() {
           />
         </div>
       </div>
-      {/* move to componet */}
-
       {markersPixel.map((marker) => {
         return (
           <img
@@ -172,7 +171,6 @@ function SpaceStation() {
           ></img>
         );
       })}
-
       <img
         src={crossImage}
         alt="cross marker"
@@ -180,6 +178,7 @@ function SpaceStation() {
         className={styles.cross}
         style={{ left: crossPosition[0], top: crossPosition[1] }}
       ></img>
+      <Timer />
     </>
   );
 }

@@ -6,21 +6,19 @@ function RemainingCharactersBox({
   remainingCharacters,
   handleCharacterSelect,
 }) {
-  {
-    return (
-      <ul className={styles.ul}>
-        {remainingCharacters.map((character) => {
-          return (
-            <RemainingCharactersBoxItem
-              key={character}
-              character={character}
-              handleCharacterSelect={handleCharacterSelect}
-            />
-          );
-        })}
-      </ul>
-    );
-  }
+  return (
+    <ul className={styles.ul}>
+      {remainingCharacters.map((character) => {
+        return (
+          <RemainingCharactersBoxItem
+            key={character}
+            character={character}
+            handleCharacterSelect={handleCharacterSelect}
+          />
+        );
+      })}
+    </ul>
+  );
 }
 
 RemainingCharactersBox.propTypes = {
