@@ -6,8 +6,10 @@ import markerIcon from "../assets/marker-check.svg";
 import crossIcon from "../assets/alpha-x-circle-outline.svg";
 import styles from "../styles/SpaceStation.module.css";
 import Timer from "../components/Timer";
+import useSessionId from "../hooks/useSessionId";
 
 function SpaceStation() {
+  console.log("rendering");
   const [remainingCharacters, setRemainingCharacters] = useState([
     "Wally",
     "Woof",
@@ -15,6 +17,8 @@ function SpaceStation() {
     "Wizard",
     "Odlaw",
   ]);
+  const [coord, setCoord] = useState([0, 0]);
+  const [crossPosition, setCrossPosition] = useState(["0px", "0px"]);
   const [markersPercent, setMarkersPercent] = useState([]);
   const [markersPixel, setMarkersPixel] = useState([]);
   const [imageDimensions, setImageDimensions] = useState({
@@ -23,19 +27,14 @@ function SpaceStation() {
     offsetLeft: 0,
     offsetTop: 0,
   });
-  const [coord, setCoord] = useState([0, 0]);
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-  const [sending, setSending] = useState(false);
-  const [crossPosition, setCrossPosition] = useState(["0px", "0px"]);
 
-  console.log("rendering");
   const targetingBox = useRef(null);
   const selectionBox = useRef(null);
   const cross = useRef(null);
 
   const apiUrl = import.meta.env.VITE_API_URL;
-  const url = `${apiUrl}coords`;
+
+  const { sessionId, sessionIdError, sessionIdLoading } = useSessionId(1);
 
   const handleImageClick = (e) => {
     cross.current.style.display = "none";
@@ -85,13 +84,19 @@ function SpaceStation() {
     );
   };
 
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+  const [sending, setSending] = useState(false);
+
   const handleCharacterSelect = (character) => {
     setSending(true);
+    const url = `${apiUrl}games/coords`;
 
     fetch(url, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ character, xCoord: coord[0], yCoord: coord[1] }),
+      // credentials: "include",
     })
       .then((response) => response.json())
       .then((response) => {
@@ -178,7 +183,11 @@ function SpaceStation() {
         className={styles.cross}
         style={{ left: crossPosition[0], top: crossPosition[1] }}
       ></img>
-      <Timer />
+      {sessionIdLoading && <h3>Loading Timer</h3>}
+      {sessionIdError && (
+        <h3>Session Start Failed - Time will not be recorded</h3>
+      )}
+      {sessionId && <Timer />}
     </>
   );
 }
