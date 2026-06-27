@@ -7,6 +7,7 @@ import crossIcon from "../assets/alpha-x-circle-outline.svg";
 import styles from "../styles/SpaceStation.module.css";
 import Timer from "../components/Timer";
 import useSessionId from "../hooks/useSessionId";
+import useFinishSession from "../hooks/useFinishSession";
 
 function SpaceStation() {
   console.log("rendering");
@@ -28,13 +29,18 @@ function SpaceStation() {
     offsetTop: 0,
   });
 
+  const { sessionId, sessionIdError, sessionIdLoading } = useSessionId(1);
+  const { finishTime, finishError, finishLoading } = useFinishSession(
+    sessionId,
+    remainingCharacters,
+  );
+
+  console.log(remainingCharacters.length);
+  console.log(finishTime);
+
   const targetingBox = useRef(null);
   const selectionBox = useRef(null);
   const cross = useRef(null);
-
-  const apiUrl = import.meta.env.VITE_API_URL;
-
-  const { sessionId, sessionIdError, sessionIdLoading } = useSessionId(1);
 
   const handleImageClick = (e) => {
     cross.current.style.display = "none";
@@ -90,6 +96,7 @@ function SpaceStation() {
 
   const handleCharacterSelect = (character) => {
     setSending(true);
+    const apiUrl = import.meta.env.VITE_API_URL;
     const url = `${apiUrl}games/coords`;
 
     fetch(url, {
@@ -188,8 +195,25 @@ function SpaceStation() {
         <h3>Session Start Failed - Time will not be recorded</h3>
       )}
       {sessionId && <Timer />}
+
+      {finishLoading && <h3>No Finish Time Yet</h3>}
+      {finishError && (
+        <h3>Session Finish Request Failed - Time was not recorded</h3>
+      )}
+      {finishTime > 0 && finishTime < 60000 && (
+        <h3>Finish Time was {finishTime / 1000} seconds</h3>
+      )}
+      {finishTime >= 60000 && (
+        <h3>
+          Finish Time was {Math.floor(finishTime / 60000)} min{" "}
+          {Math.floor(finishTime % 60000) / 1000} seconds
+        </h3>
+      )}
     </>
   );
 }
+
+// remove or stop timer
+// create popup that asks for name
 
 export default SpaceStation;
