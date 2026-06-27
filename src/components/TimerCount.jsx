@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import timerIcon from "../assets/timer-outline.svg";
 import styles from "../styles/Timer.module.css";
 
-function Timer() {
+function TimerCount() {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
@@ -38,4 +38,4 @@ function Timer() {
   );
 }
 
-export default Timer;
+export default TimerCount;

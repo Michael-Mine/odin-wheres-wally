@@ -1,13 +1,14 @@
 import { useRef, useState } from "react";
+import useSessionId from "../hooks/useSessionId";
+import useFinishSession from "../hooks/useFinishSession";
 import Characters from "../components/Characters";
 import RemainingCharactersBox from "../components/RemainingCharactersBox";
+import TimerDisplay from "../components/TimerDisplay";
+
 import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
 import markerIcon from "../assets/marker-check.svg";
 import crossIcon from "../assets/alpha-x-circle-outline.svg";
 import styles from "../styles/SpaceStation.module.css";
-import Timer from "../components/Timer";
-import useSessionId from "../hooks/useSessionId";
-import useFinishSession from "../hooks/useFinishSession";
 
 function SpaceStation() {
   console.log("rendering");
@@ -190,11 +191,13 @@ function SpaceStation() {
         className={styles.cross}
         style={{ left: crossPosition[0], top: crossPosition[1] }}
       ></img>
-      {sessionIdLoading && <h3>Loading Timer</h3>}
-      {sessionIdError && (
-        <h3>Session Start Failed - Time will not be recorded</h3>
-      )}
-      {sessionId && <Timer />}
+
+      <TimerDisplay
+        sessionIdLoading={sessionIdLoading}
+        sessionIdError={sessionIdError}
+        sessionId={sessionId}
+        finishTime={finishTime}
+      />
 
       {finishLoading && <h3>No Finish Time Yet</h3>}
       {finishError && (
