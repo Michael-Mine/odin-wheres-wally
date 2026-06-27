@@ -4,6 +4,7 @@ import useFinishSession from "../hooks/useFinishSession";
 import Characters from "../components/Characters";
 import RemainingCharactersBox from "../components/RemainingCharactersBox";
 import TimerDisplay from "../components/TimerDisplay";
+import FinishTimeDisplay from "../components/FinishTimeDisplay";
 
 import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
 import markerIcon from "../assets/marker-check.svg";
@@ -199,24 +200,13 @@ function SpaceStation() {
         finishTime={finishTime}
       />
 
-      {finishLoading && <h3>No Finish Time Yet</h3>}
-      {finishError && (
-        <h3>Session Finish Request Failed - Time was not recorded</h3>
-      )}
-      {finishTime > 0 && finishTime < 60000 && (
-        <h3>Finish Time was {finishTime / 1000} seconds</h3>
-      )}
-      {finishTime >= 60000 && (
-        <h3>
-          Finish Time was {Math.floor(finishTime / 60000)} min{" "}
-          {Math.floor(finishTime % 60000) / 1000} seconds
-        </h3>
-      )}
+      <FinishTimeDisplay
+        finishLoading={finishLoading}
+        finishError={finishError}
+        finishTime={finishTime}
+      />
     </>
   );
 }
-
-// remove or stop timer
-// create popup that asks for name
 
 export default SpaceStation;
