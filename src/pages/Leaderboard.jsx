@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import useScores from "../hooks/useScores";
 import formatTime from "../utils/formatTime";
-import styles from "../styles/Leaderboard.module.css";
+import "../styles/Leaderboard.module.css";
 
 function Leaderboard() {
   const { scores, scoreError, scoreLoading } = useScores();

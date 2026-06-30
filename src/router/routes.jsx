@@ -2,7 +2,7 @@ import App from "../App.jsx";
 import ErrorPage from "../pages/Error-404.jsx";
 import Home from "../pages/Home.jsx";
 import Leaderboard from "../pages/Leaderboard.jsx";
-import SpaceStation from "../pages/SpaceStation.jsx";
+import Game from "../pages/Game.jsx";
 
 const routes = [
   {
@@ -12,7 +12,7 @@ const routes = [
     children: [
       { index: true, element: <Home /> },
       { path: "leaderboard", element: <Leaderboard /> },
-      { path: "space-station", element: <SpaceStation /> },
+      { path: "space-station", element: <Game /> },
     ],
   },
 ];

@@ -10,10 +10,9 @@ import ScoreCheck from "../components/ScoreCheck";
 import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
 import markerIcon from "../assets/marker-check.svg";
 import crossIcon from "../assets/alpha-x-circle-outline.svg";
-import styles from "../styles/SpaceStation.module.css";
+import styles from "../styles/Game.module.css";
 
-function SpaceStation() {
-  console.log("rendering");
+function Game() {
   const [remainingCharacters, setRemainingCharacters] = useState([
     "Wally",
     "Woof",
@@ -37,9 +36,6 @@ function SpaceStation() {
     sessionId,
     remainingCharacters,
   );
-
-  console.log(remainingCharacters.length);
-  console.log(finishTime);
 
   const targetingBox = useRef(null);
   const selectionBox = useRef(null);
@@ -65,7 +61,6 @@ function SpaceStation() {
     const xCoord = Math.floor((x / target.width) * 10000);
     const yCoord = Math.floor((y / target.height) * 10000);
 
-    console.log(`Clicked at: X=${xCoord}%, Y=${yCoord}%`);
     setCoord([xCoord, yCoord]);
     setCrossPosition([e.pageX + "px", e.pageY + "px"]);
 
@@ -93,12 +88,7 @@ function SpaceStation() {
     );
   };
 
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-  const [sending, setSending] = useState(false);
-
   const handleCharacterSelect = (character) => {
-    setSending(true);
     const apiUrl = import.meta.env.VITE_API_URL;
     const url = `${apiUrl}games/coords`;
 
@@ -111,12 +101,9 @@ function SpaceStation() {
         xCoord: coord[0],
         yCoord: coord[1],
       }),
-      // credentials: "include",
     })
       .then((response) => response.json())
       .then((response) => {
-        setResponse({ ...response });
-        console.log(response);
         if (response.name) {
           setMarkersPercent([...markersPercent, response]);
           setMarkersPixel([
@@ -139,15 +126,11 @@ function SpaceStation() {
           });
           setRemainingCharacters(updatedCharacters);
         } else {
-          console.log("incorrect");
           cross.current.style.display = "inline";
         }
       })
-      .catch((error) => setError(error))
-      .finally(() => {
-        setSending(false);
-        targetingBox.current.togglePopover();
-      });
+      .catch((error) => console.log(error))
+      .finally(() => targetingBox.current.togglePopover());
   };
 
   return (
@@ -219,4 +202,4 @@ function SpaceStation() {
   );
 }
 
-export default SpaceStation;
+export default Game;
