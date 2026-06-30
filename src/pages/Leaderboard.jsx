@@ -5,8 +5,9 @@ function Leaderboard() {
   return (
     <>
       <h2>Leaderboard</h2>
+
       <Link to="/">
-        <button>Back</button>
+        <button>Home</button>
       </Link>
     </>
   );

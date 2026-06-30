@@ -1,33 +1,11 @@
-import { useEffect, useState } from "react";
+import useScores from "../hooks/useScores";
 import ScoreSubmit from "./ScoreSubmit";
 
 function ScoreCheck({ finishTime, sessionId }) {
-  // call getLeaderBoard to return top 5 scores saved
-  const [scores, setScores] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { scores, scoreError, scoreLoading } = useScores();
 
-  const apiUrl = import.meta.env.VITE_API_URL;
-  const url = `${apiUrl}scores/space-station`;
-
-  useEffect(() => {
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((response) => setScores(response))
-      .catch((error) => setError(error))
-      .finally(() => setLoading(false));
-  }, [url]);
-
-  console.log(scores);
-
-  if (scores && scores.length > 5) {
-    setScores(scores.slice(0, 5));
-  }
+  if (scoreLoading) return <h4>Checking Scores</h4>;
+  if (scoreError) return <h4>Error Checking Scores</h4>;
 
   if (
     scores &&

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import "../styles/input.css";
 
 function ScoreSubmit({ sessionId }) {
@@ -27,7 +28,14 @@ function ScoreSubmit({ sessionId }) {
 
   if (sending) return <h4>Sending...</h4>;
   if (response && response.message === "Score saved!")
-    return <h4>{response.message}</h4>;
+    return (
+      <>
+        <h4>{response.message}</h4>
+        <Link to="/leaderboard">
+          <button>Leaderboard</button>
+        </Link>
+      </>
+    );
 
   return (
     <>
