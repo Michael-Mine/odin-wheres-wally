@@ -1,4 +1,5 @@
 import TimerCount from "./TimerCount";
+import PropTypes from "prop-types";
 
 function TimerDisplay({
   sessionIdLoading,
@@ -11,5 +12,12 @@ function TimerDisplay({
     return <h3>Session Start Failed - Time will not be recorded</h3>;
   if (sessionId && !finishTime) return <TimerCount />;
 }
+
+TimerDisplay.propTypes = {
+  sessionIdLoading: PropTypes.bool,
+  sessionIdError: PropTypes.any,
+  sessionId: PropTypes.string,
+  finishTime: PropTypes.any,
+};
 
 export default TimerDisplay;
