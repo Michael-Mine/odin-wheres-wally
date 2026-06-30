@@ -5,6 +5,7 @@ import Characters from "../components/Characters";
 import RemainingCharactersBox from "../components/RemainingCharactersBox";
 import TimerDisplay from "../components/TimerDisplay";
 import FinishTimeDisplay from "../components/FinishTimeDisplay";
+import ScoreCheck from "../components/ScoreCheck";
 
 import spaceStationImage from "../assets/Wheres-Waldo-Space-Station.jpg";
 import markerIcon from "../assets/marker-check.svg";
@@ -104,7 +105,12 @@ function SpaceStation() {
     fetch(url, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ character, xCoord: coord[0], yCoord: coord[1] }),
+      body: JSON.stringify({
+        gameId: 1,
+        character,
+        xCoord: coord[0],
+        yCoord: coord[1],
+      }),
       // credentials: "include",
     })
       .then((response) => response.json())
@@ -205,6 +211,10 @@ function SpaceStation() {
         finishError={finishError}
         finishTime={finishTime}
       />
+
+      {finishTime && (
+        <ScoreCheck finishTime={finishTime} sessionId={sessionId} />
+      )}
     </>
   );
 }
