@@ -1,11 +1,13 @@
 import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-describe("something truthy and falsy", () => {
-  it("true to be true", () => {
-    expect(true).toBe(true);
-  });
+describe("App component", () => {
+  it("renders correct heading", () => {
+    render(<App />);
 
-  it("false to be false", () => {
-    expect(false).toBe(false);
+    expect(
+      screen.getByRole("heading", { name: "Mr Mine - Where's Wally Game" }),
+    ).toBeInTheDocument();
   });
 });
