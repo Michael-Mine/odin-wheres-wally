@@ -1,0 +1,23 @@
+table {
+  table-layout: fixed;
+  width: 80%;
+  margin: 10px auto;
+  border-collapse: collapse;
+  border-top: 1px solid #999999;
+  border-bottom: 1px solid #999999;
+}
+
+th,
+td {
+  padding: 0.6em;
+}
+
+tr :nth-child(2) {
+  text-align: left;
+}
+
+th,
+td {
+  vertical-align: top;
+  padding: 0.3em;
+}
