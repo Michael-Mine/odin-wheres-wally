@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function FinishTimeDisplay({ finishLoading, finishError, finishTime }) {
   if (finishLoading) return <h3>No Finish Time Yet</h3>;
   if (finishError)
@@ -14,5 +16,11 @@ function FinishTimeDisplay({ finishLoading, finishError, finishTime }) {
       </h3>
     );
 }
+
+FinishTimeDisplay.propTypes = {
+  finishLoading: PropTypes.bool,
+  finishError: PropTypes.any,
+  finishTime: PropTypes.any,
+};
 
 export default FinishTimeDisplay;
