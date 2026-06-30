@@ -13,7 +13,7 @@ function Characters() {
       </div>
       <p>
         <b>
-          Wally &nbsp; &nbsp; Woof &nbsp; &nbsp; &nbsp; &nbsp; Wenda &nbsp;
+          Wally &nbsp; &nbsp; Woof &nbsp; &nbsp; &nbsp; &nbsp; Wendy &nbsp;
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Wizard &nbsp; &nbsp;
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Odlaw
         </b>

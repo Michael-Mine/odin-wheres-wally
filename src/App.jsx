@@ -15,9 +15,3 @@ function App() {
 }
 
 export default App;
-
-// leaderboard page
-
-//tests
-
-// Wendy

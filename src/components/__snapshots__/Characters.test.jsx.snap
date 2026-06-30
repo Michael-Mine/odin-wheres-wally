@@ -13,26 +13,7 @@ exports[`Characters component > renders image and names underneath 1`] = `
   </div>
   <p>
     <b>
-      Wally     Woof         Wenda                 Wizard                 Odlaw
-    </b>
-  </p>
-</div>
-`;
-
-exports[`Footer component > renders image and names underneath 1`] = `
-<div>
-  <div
-    class="_charactersContainer_9adf01"
-  >
-    <img
-      alt="characters"
-      class="_charactersImage_9adf01"
-      src="/src/assets/wheres-waldo-characters.jpg"
-    />
-  </div>
-  <p>
-    <b>
-      Wally     Woof         Wenda                 Wizard                 Odlaw
+      Wally     Woof         Wendy                 Wizard                 Odlaw
     </b>
   </p>
 </div>
