@@ -1,0 +1,62 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Home page > renders heading, text instructions & links 1`] = `
+<div>
+  <h2>
+    The classic Where's Wally game
+  </h2>
+  <div
+    class="_charactersContainer_9adf01"
+  >
+    <img
+      alt="characters"
+      class="_charactersImage_9adf01"
+      src="/src/assets/wheres-waldo-characters.jpg"
+    />
+  </div>
+  <p>
+    <b>
+      Wally     Woof         Wendy                 Wizard                 Odlaw
+    </b>
+  </p>
+  <h3>
+    Find all the characters as fast as you can!
+  </h3>
+  <p>
+    How to play:
+  </p>
+  <ul>
+    <li>
+      When you find a character, click it in the image and choose the character.
+    </li>
+    <br />
+    <li>
+      Top 5 quickest times are recorded on leaderboard.
+    </li>
+    <br />
+    <li>
+      Suitable for desktop only.
+    </li>
+  </ul>
+  <div
+    class="links"
+  >
+    <a
+      data-discover="true"
+      href="/space-station"
+    >
+      <button>
+        Load Game
+      </button>
+    </a>
+    <a
+      data-discover="true"
+      href="/leaderboard"
+    >
+      <button>
+        Leaderboard
+      </button>
+    </a>
+  </div>
+</div>
+`;

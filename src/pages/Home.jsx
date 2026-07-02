@@ -9,10 +9,13 @@ function Home() {
       <h3>Find all the characters as fast as you can!</h3>
       <p>How to play:</p>
       <ul>
-        <li>When you find a character, click it in the image.</li>
-        <li>Choose which character from the popup list.</li>
+        <li>
+          When you find a character, click it in the image and choose the
+          character.
+        </li>
         <br />
-        <li>Top 10 quickest times are recorded on leaderboard.</li>
+        <li>Top 5 quickest times are recorded on leaderboard.</li>
+        <br />
         <li>Suitable for desktop only.</li>
       </ul>
       <div className="links">
