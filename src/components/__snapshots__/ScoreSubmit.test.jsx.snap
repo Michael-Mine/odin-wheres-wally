@@ -1,0 +1,38 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Score Submit component > renders heading, label, input & button 1`] = `
+<div>
+  <h4>
+    Add name to submit high score!
+  </h4>
+  <form>
+    <div
+      class="input-container"
+    >
+      <label
+        for="title"
+      >
+        Name:
+      </label>
+      <input
+        class="input-field"
+        data-testid="title-input"
+        id="title"
+        maxlength="15"
+        minlength="3"
+        name="title"
+        required=""
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <button
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+`;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 import "../styles/input.css";
 
 function ScoreSubmit({ sessionId }) {
@@ -67,5 +68,9 @@ function ScoreSubmit({ sessionId }) {
     </>
   );
 }
+
+ScoreSubmit.propTypes = {
+  sessionId: PropTypes.string,
+};
 
 export default ScoreSubmit;
