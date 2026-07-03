@@ -149,6 +149,7 @@ function Game() {
         ref={targetingBox}
         popover="auto"
         anchor="spaceStationImage"
+        data-testid="targeting-box"
       >
         <div
           className={styles.selectionBox}
@@ -156,6 +157,7 @@ function Game() {
           ref={selectionBox}
           popover="auto"
           anchor="targetingBox"
+          data-testid="selection-box"
         >
           <RemainingCharactersBox
             remainingCharacters={remainingCharacters}
