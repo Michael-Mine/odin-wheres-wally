@@ -21,8 +21,6 @@ const useScores = () => {
       .finally(() => setScoreLoading(false));
   }, [url]);
 
-  console.log(scores);
-
   if (scores && scores.length > 5) {
     setScores(scores.slice(0, 5));
   }

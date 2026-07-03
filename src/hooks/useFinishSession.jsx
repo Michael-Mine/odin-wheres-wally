@@ -10,8 +10,6 @@ const useFinishSession = (sessionId, remainingCharacters) => {
 
   useEffect(() => {
     if (remainingCharacters.length === 0 && !finishTime) {
-      console.log("sending finish");
-
       fetch(url, {
         method: "POST",
         headers: { "content-type": "application/json" },

@@ -13,7 +13,6 @@ function ScoreSubmit({ sessionId }) {
   const url = `${apiUrl}scores/space-station`;
 
   const sendScore = () => {
-    console.log("sending score");
     setSending(true);
 
     fetch(url, {
